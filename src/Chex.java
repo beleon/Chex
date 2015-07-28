@@ -20,6 +20,9 @@ public final class Chex {
                     case 'p':
                         System.out.println(chess);
                         break;
+                    case 'l':
+                        System.out.println(chess.moveListAsString());
+                        break;
                     case 'r':
                         chess = new Chess();
                         break;

@@ -1,9 +1,14 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Chess {
     private Square[][] board;
     private Player currentPlayer;
+    private List<Vector<Vector<Integer>>> moves;
 
     public Chess() {
         currentPlayer = Player.WHITE;
+        moves = new LinkedList<>();
         board = new Square[8][8];
 
         //Black first row.
@@ -47,23 +52,24 @@ public class Chess {
     }
 
     public boolean move(String fromString, String toString) {
-        Vector from = Vector.fromChessNotation(fromString);
-        Vector to = Vector.fromChessNotation(toString);
+        Vector<Integer> from = Vector.fromChessNotation(fromString);
+        Vector<Integer> to = Vector.fromChessNotation(toString);
 
         if (validateMove(from, to)) {
             movePiece(from, to);
+            moves.add(new Vector<>(from, to));
             nextPlayer();
             return true;
         }
         return false;
     }
 
-    private void movePiece(Vector from, Vector to) {
+    private void movePiece(Vector<Integer> from, Vector<Integer> to) {
         Piece piece = board[from.getY()][from.getX()].removePiece();
         board[to.getY()][to.getX()].setPiece(piece);
     }
 
-    private boolean validateMove(Vector from, Vector to) {
+    private boolean validateMove(Vector<Integer> from, Vector<Integer> to) {
         Piece piece = board[from.getY()][from.getX()].getPiece();
         if (piece != null && piece.getPlayer() == currentPlayer) {
             return true;
@@ -91,6 +97,16 @@ public class Chess {
             stringBuilder.append("\n-----------------------------------------\n");
         }
         stringBuilder.setLength(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+
+    public String moveListAsString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        moves.stream().forEach(moveVector -> stringBuilder.append(Vector.toChessNotation(moveVector.getX())).append(" ")
+                .append(Vector.toChessNotation(moveVector.getY())).append("\n"));
+        if (moves.size() > 0) {
+            stringBuilder.setLength(stringBuilder.length() - 1);
+        }
         return stringBuilder.toString();
     }
 }
