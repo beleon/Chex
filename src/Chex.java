@@ -17,10 +17,30 @@ public final class Chex {
                 command = commandScanner.next();
 
                 switch (command.toLowerCase().charAt(0)) {
+                    case 'p':
+                        System.out.println(chess);
+                        break;
+                    case 'r':
+                        chess = new Chess();
+                        break;
                     case 'm':
-                        if(!chess.move(commandScanner.next(), commandScanner.next())) {
-                            System.out.println("Illegal move.");
+                        if (commandScanner.hasNext()) {
+                            String from = commandScanner.next();
+                            if (commandScanner.hasNext()) {
+                                String to = commandScanner.next();
+                                if (validate(from) && validate(to)) {
+                                    if(chess.move(from, to)) {
+                                        System.out.println("Ok.");
+                                    } else {
+                                        System.out.println("Illegal move.");
+                                    }
+                                } else {
+                                    System.out.println("Invalid square.");
+                                }
+                                break;
+                            }
                         }
+                        System.out.println("Invalid number of arguments.");
                         break;
                     case 'q': done = true; break;
                     default:
@@ -30,6 +50,11 @@ public final class Chex {
                 done = true;
             }
         }
+    }
+
+    private static boolean validate(String square) {
+        return square.length() == 2 && square.toLowerCase().charAt(0) <= 'h' && square.toLowerCase().charAt(0) >= 'a'
+                && square.charAt(1) >= '1' && square.charAt(1) <= '8';
     }
 
     private Chex() {
