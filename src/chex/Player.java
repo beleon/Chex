@@ -34,6 +34,18 @@ public class Player {
         this.movedKing = movedKing;
     }
 
+    public boolean hasMovedLeftRook() {
+        return movedLeftRook;
+    }
+
+    public boolean hasMovedRightRook() {
+        return movedRightRook;
+    }
+
+    public boolean hasMovedKing() {
+        return movedKing;
+    }
+
     public Vector2d getDirection() {
         return direction;
     }
