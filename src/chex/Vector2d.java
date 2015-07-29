@@ -48,12 +48,17 @@ public class Vector2d {
         return new Vector2d(x % scalar, y % scalar);
     }
 
-    public Vector2d normalize() {
-        return new Vector2d(x != 0 ? x / Math.abs(x) : 0, y != 0 ? y / Math.abs(y) : 0);
+    public Vector2d shorten() {
+        int gcd = GCD(x, y);
+        return new Vector2d(x != 0 ? x / gcd : 0, y != 0 ? y / gcd : 0);
     }
 
     public int max() {
         return x > y ? x : y;
+    }
+
+    public boolean isDiagonal() {
+        return Math.abs(x) == Math.abs(y);
     }
 
     public Vector2d abs() {
@@ -64,12 +69,18 @@ public class Vector2d {
         return new Vector2d(y, x);
     }
 
+    public static int GCD(int a, int b) {
+        if (b==0) return Math.abs(a);
+        return GCD(b,a%b);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Vector2d vector2d = (Vector2d) o;
+        System.out.println(x + ", " + vector2d.x + "\n" + y + ", " + vector2d.y);
         return x == vector2d.x && y == vector2d.y;
     }
 
