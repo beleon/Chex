@@ -24,6 +24,16 @@ public class Tuple<T> {
         this.y = y;
     }
 
+    public T get(int index) {
+        if (index == 0) {
+            return x;
+        } else if (index == 1) {
+            return y;
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
