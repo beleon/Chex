@@ -1,12 +1,12 @@
 package chex;
 
-/**
- * Created by leon on 29.07.15.
- */
+import chex.figures.King;
+
 public class Player {
     private Color color;
     private Vector2d direction;
     private boolean movedLeftRook, movedRightRook, movedKing;
+    private King myKing;
 
     public Player(Color color, Vector2d direction) {
         this.color = color;
@@ -36,6 +36,10 @@ public class Player {
 
     public Vector2d getDirection() {
         return direction;
+    }
+
+    public void registerKing(King king) {
+        myKing = king;
     }
 
     @Override

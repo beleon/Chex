@@ -23,12 +23,12 @@ public class Rook extends Figure {
             return INVALID_ROOK_MOVE;
         }
 
-        for (int i = 0; i < moveVector.maxAbs(); ++i) {
+        for (int i = 0; i < moveVector.abs().max(); ++i) {
             Vector2d wayPoint = from.add(normal.mult(i + 1));
             if (board[wayPoint.getY()][wayPoint.getX()].getPiece() != null) {
                 if (board[wayPoint.getY()][wayPoint.getX()].getPiece().belongsTo(player)) {
                     return OWN_PIECE_COLLISION_ERROR;
-                } else if (i != moveVector.maxAbs() - 1) {
+                } else if (i != moveVector.abs().max() - 1) {
                     return ENEMY_COLLISION_ERROR;
                 }
             }

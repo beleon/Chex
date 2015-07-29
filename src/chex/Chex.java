@@ -16,41 +16,42 @@ public final class Chex {
             if (inScanner.hasNextLine()) {
                 commandLine = inScanner.nextLine();
                 commandScanner = new Scanner(commandLine);
-                command = commandScanner.next();
-
-                switch (command.toLowerCase().charAt(0)) {
-                    case 'p':
-                        System.out.println(chess);
-                        break;
-                    case 'l':
-                        System.out.println(chess.moveListAsString());
-                        break;
-                    case 'r':
-                        chess = new Chess();
-                        break;
-                    case 'm':
-                        if (commandScanner.hasNext()) {
-                            String from = commandScanner.next();
+                if (commandScanner.hasNext()) {
+                    command = commandScanner.next();
+                    switch (command.toLowerCase().charAt(0)) {
+                        case 'p':
+                            System.out.println(chess);
+                            break;
+                        case 'l':
+                            System.out.println(chess.moveListAsString());
+                            break;
+                        case 'r':
+                            chess = new Chess();
+                            break;
+                        case 'm':
                             if (commandScanner.hasNext()) {
-                                String to = commandScanner.next();
-                                if (validate(from) && validate(to)) {
-                                    int valCode = chess.move(from, to);
-                                    if(valCode == 0) {
-                                        System.out.println("Ok.");
+                                String from = commandScanner.next();
+                                if (commandScanner.hasNext()) {
+                                    String to = commandScanner.next();
+                                    if (validate(from) && validate(to)) {
+                                        int valCode = chess.move(from, to);
+                                        if(valCode == 0) {
+                                            System.out.println("Ok.");
+                                        } else {
+                                            System.out.println("Illegal move: " + valCodeToString(valCode));
+                                        }
                                     } else {
-                                        System.out.println("Illegal move: " + valCodeToString(valCode));
+                                        System.out.println("Invalid square.");
                                     }
-                                } else {
-                                    System.out.println("Invalid square.");
+                                    break;
                                 }
-                                break;
                             }
-                        }
-                        System.out.println("Invalid number of arguments.");
-                        break;
-                    case 'q': done = true; break;
-                    default:
-                        System.out.println("Unknown command: " + command); break;
+                            System.out.println("Invalid number of arguments.");
+                            break;
+                        case 'q': done = true; break;
+                        default:
+                            System.out.println("Unknown command: " + command); break;
+                    }
                 }
             } else {
                 done = true;
