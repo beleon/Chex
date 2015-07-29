@@ -23,4 +23,8 @@ public class Piece {
     public String toString() {
         return figure.toString() + player.toString();
     }
+
+    public boolean belongsTo(Player player) {
+        return this.player == player;
+    }
 }
