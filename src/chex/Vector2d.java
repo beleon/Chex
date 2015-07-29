@@ -56,6 +56,14 @@ public class Vector2d {
         return new Vector2d(x % scalar, y % scalar);
     }
 
+    public Vector2d normalize() {
+        return new Vector2d(x != 0 ? x / Math.abs(x) : 0, y != 0 ? y / Math.abs(y) : 0);
+    }
+
+    public int maxAbs() {
+        return Math.abs(x) > Math.abs(y) ? Math.abs(x) : Math.abs(y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
