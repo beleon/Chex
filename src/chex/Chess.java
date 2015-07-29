@@ -1,29 +1,33 @@
+package chex;
+
+import chex.figures.Figure;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class Chess {
     private Square[][] board;
-    private Player currentPlayer;
+    private Color currentPlayer;
     private List<Tuple<Vector2d>> moves;
 
     public Chess() {
-        currentPlayer = Player.WHITE;
+        currentPlayer = Color.WHITE;
         moves = new LinkedList<>();
         board = new Square[8][8];
 
         //Black first row.
-        board[0][0] = new Square(new Piece(Player.BLACK, Figure.ROOK));
-        board[0][1] = new Square(new Piece(Player.BLACK, Figure.KNIGHT));
-        board[0][2] = new Square(new Piece(Player.BLACK, Figure.BISHOP));
-        board[0][3] = new Square(new Piece(Player.BLACK, Figure.QUEEN));
-        board[0][4] = new Square(new Piece(Player.BLACK, Figure.KING));
-        board[0][5] = new Square(new Piece(Player.BLACK, Figure.BISHOP));
-        board[0][6] = new Square(new Piece(Player.BLACK, Figure.KNIGHT));
-        board[0][7] = new Square(new Piece(Player.BLACK, Figure.ROOK));
+        board[0][0] = new Square(new Piece(Color.BLACK, Figure.ROOK));
+        board[0][1] = new Square(new Piece(Color.BLACK, Figure.KNIGHT));
+        board[0][2] = new Square(new Piece(Color.BLACK, Figure.BISHOP));
+        board[0][3] = new Square(new Piece(Color.BLACK, Figure.QUEEN));
+        board[0][4] = new Square(new Piece(Color.BLACK, Figure.KING));
+        board[0][5] = new Square(new Piece(Color.BLACK, Figure.BISHOP));
+        board[0][6] = new Square(new Piece(Color.BLACK, Figure.KNIGHT));
+        board[0][7] = new Square(new Piece(Color.BLACK, Figure.ROOK));
 
         //Black second row.
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Square(new Piece(Player.BLACK, Figure.PAWN));
+            board[1][i] = new Square(new Piece(Color.BLACK, Figure.PAWN));
         }
 
 
@@ -36,18 +40,18 @@ public class Chess {
 
 
         //White first row.
-        board[7][0] = new Square(new Piece(Player.WHITE, Figure.ROOK));
-        board[7][1] = new Square(new Piece(Player.WHITE, Figure.KNIGHT));
-        board[7][2] = new Square(new Piece(Player.WHITE, Figure.BISHOP));
-        board[7][3] = new Square(new Piece(Player.WHITE, Figure.QUEEN));
-        board[7][4] = new Square(new Piece(Player.WHITE, Figure.KING));
-        board[7][5] = new Square(new Piece(Player.WHITE, Figure.BISHOP));
-        board[7][6] = new Square(new Piece(Player.WHITE, Figure.KNIGHT));
-        board[7][7] = new Square(new Piece(Player.WHITE, Figure.ROOK));
+        board[7][0] = new Square(new Piece(Color.WHITE, Figure.ROOK));
+        board[7][1] = new Square(new Piece(Color.WHITE, Figure.KNIGHT));
+        board[7][2] = new Square(new Piece(Color.WHITE, Figure.BISHOP));
+        board[7][3] = new Square(new Piece(Color.WHITE, Figure.QUEEN));
+        board[7][4] = new Square(new Piece(Color.WHITE, Figure.KING));
+        board[7][5] = new Square(new Piece(Color.WHITE, Figure.BISHOP));
+        board[7][6] = new Square(new Piece(Color.WHITE, Figure.KNIGHT));
+        board[7][7] = new Square(new Piece(Color.WHITE, Figure.ROOK));
 
         //White second row.
         for (int i = 0; i < 8; i++) {
-            board[6][i] = new Square(new Piece(Player.WHITE, Figure.PAWN));
+            board[6][i] = new Square(new Piece(Color.WHITE, Figure.PAWN));
         }
     }
 
@@ -78,10 +82,10 @@ public class Chess {
     }
 
     private void nextPlayer() {
-        if (currentPlayer == Player.BLACK) {
-            currentPlayer = Player.WHITE;
+        if (currentPlayer == Color.BLACK) {
+            currentPlayer = Color.WHITE;
         } else {
-            currentPlayer = Player.BLACK;
+            currentPlayer = Color.BLACK;
         }
     }
 

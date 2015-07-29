@@ -1,6 +1,8 @@
+package chex;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public enum Player {
+public enum Color {
     WHITE, BLACK;
 
     @Override

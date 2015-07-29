@@ -1,3 +1,5 @@
+package chex;
+
 public class Vector2d {
     private int x, y;
 

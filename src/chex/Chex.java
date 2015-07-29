@@ -1,3 +1,5 @@
+package chex;
+
 import java.util.Scanner;
 
 public final class Chex {

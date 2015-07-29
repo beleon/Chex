@@ -1,3 +1,5 @@
+package chex;
+
 public class Tuple<T> {
     private T x, y;
 

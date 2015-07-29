@@ -1,3 +1,5 @@
+package chex;
+
 public class Square {
     private Piece piece;
 

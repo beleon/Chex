@@ -1,3 +1,7 @@
+package chex;
+
+import chex.figures.Figure;
+
 public class Piece {
     private Player player;
     private Figure figure;
