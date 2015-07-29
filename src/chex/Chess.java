@@ -1,33 +1,35 @@
 package chex;
 
-import chex.figures.Figure;
+import chex.figures.*;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Chess {
     private Square[][] board;
-    private Color currentPlayer;
+    private int currentPlayer;
+    private Tuple<Player> players;
     private List<Tuple<Vector2d>> moves;
 
     public Chess() {
-        currentPlayer = Color.WHITE;
+        currentPlayer = 0;
+        players = new Tuple<>(new Player(Color.WHITE), new Player(Color.BLACK));
         moves = new LinkedList<>();
         board = new Square[8][8];
 
         //Black first row.
-        board[0][0] = new Square(new Piece(Color.BLACK, Figure.ROOK));
-        board[0][1] = new Square(new Piece(Color.BLACK, Figure.KNIGHT));
-        board[0][2] = new Square(new Piece(Color.BLACK, Figure.BISHOP));
-        board[0][3] = new Square(new Piece(Color.BLACK, Figure.QUEEN));
-        board[0][4] = new Square(new Piece(Color.BLACK, Figure.KING));
-        board[0][5] = new Square(new Piece(Color.BLACK, Figure.BISHOP));
-        board[0][6] = new Square(new Piece(Color.BLACK, Figure.KNIGHT));
-        board[0][7] = new Square(new Piece(Color.BLACK, Figure.ROOK));
+        board[0][0] = new Square(new Piece(players.getY(), new Rook()));
+        board[0][1] = new Square(new Piece(players.getY(), new Knight()));
+        board[0][2] = new Square(new Piece(players.getY(), new Bishop()));
+        board[0][3] = new Square(new Piece(players.getY(), new Queen()));
+        board[0][4] = new Square(new Piece(players.getY(), new King()));
+        board[0][5] = new Square(new Piece(players.getY(), new Bishop()));
+        board[0][6] = new Square(new Piece(players.getY(), new Knight()));
+        board[0][7] = new Square(new Piece(players.getY(), new Rook()));
 
         //Black second row.
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Square(new Piece(Color.BLACK, Figure.PAWN));
+            board[1][i] = new Square(new Piece(players.getY(), new Pawn()));
         }
 
 
@@ -40,18 +42,18 @@ public class Chess {
 
 
         //White first row.
-        board[7][0] = new Square(new Piece(Color.WHITE, Figure.ROOK));
-        board[7][1] = new Square(new Piece(Color.WHITE, Figure.KNIGHT));
-        board[7][2] = new Square(new Piece(Color.WHITE, Figure.BISHOP));
-        board[7][3] = new Square(new Piece(Color.WHITE, Figure.QUEEN));
-        board[7][4] = new Square(new Piece(Color.WHITE, Figure.KING));
-        board[7][5] = new Square(new Piece(Color.WHITE, Figure.BISHOP));
-        board[7][6] = new Square(new Piece(Color.WHITE, Figure.KNIGHT));
-        board[7][7] = new Square(new Piece(Color.WHITE, Figure.ROOK));
+        board[7][0] = new Square(new Piece(players.getX(), new Rook()));
+        board[7][1] = new Square(new Piece(players.getX(), new Knight()));
+        board[7][2] = new Square(new Piece(players.getX(), new Bishop()));
+        board[7][3] = new Square(new Piece(players.getX(), new Queen()));
+        board[7][4] = new Square(new Piece(players.getX(), new King()));
+        board[7][5] = new Square(new Piece(players.getX(), new Bishop()));
+        board[7][6] = new Square(new Piece(players.getX(), new Knight()));
+        board[7][7] = new Square(new Piece(players.getX(), new Rook()));
 
         //White second row.
         for (int i = 0; i < 8; i++) {
-            board[6][i] = new Square(new Piece(Color.WHITE, Figure.PAWN));
+            board[6][i] = new Square(new Piece(players.getX(), new Pawn()));
         }
     }
 
@@ -75,18 +77,14 @@ public class Chess {
 
     private boolean validateMove(Vector2d from, Vector2d to) {
         Piece piece = board[from.getY()][from.getX()].getPiece();
-        if (piece != null && piece.getPlayer() == currentPlayer) {
+        if (piece != null && piece.belongsTo(players.get(currentPlayer))) {
             return true;
         }
         return false;
     }
 
     private void nextPlayer() {
-        if (currentPlayer == Color.BLACK) {
-            currentPlayer = Color.WHITE;
-        } else {
-            currentPlayer = Color.BLACK;
-        }
+        currentPlayer = (currentPlayer + 1) % 2;
     }
 
     @Override
