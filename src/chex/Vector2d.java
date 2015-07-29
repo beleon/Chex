@@ -52,8 +52,8 @@ public class Vector2d {
         return new Vector2d(x != 0 ? x / Math.abs(x) : 0, y != 0 ? y / Math.abs(y) : 0);
     }
 
-    public int maxAbs() {
-        return Math.abs(x) > Math.abs(y) ? Math.abs(x) : Math.abs(y);
+    public int max() {
+        return x > y ? x : y;
     }
 
     public Vector2d abs() {
