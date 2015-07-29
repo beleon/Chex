@@ -12,16 +12,8 @@ public class Vector2d {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public static Vector2d fromChessNotation(String chessNotation) {
@@ -62,6 +54,14 @@ public class Vector2d {
 
     public int maxAbs() {
         return Math.abs(x) > Math.abs(y) ? Math.abs(x) : Math.abs(y);
+    }
+
+    public Vector2d abs() {
+        return new Vector2d(Math.abs(x), Math.abs(y));
+    }
+
+    public Vector2d mirror() {
+        return new Vector2d(y, x);
     }
 
     @Override
