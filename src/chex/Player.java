@@ -22,6 +22,18 @@ public class Player {
         this.color = color;
     }
 
+    public void setMovedLeftRook(boolean movedLeftRook) {
+        this.movedLeftRook = movedLeftRook;
+    }
+
+    public void setMovedRightRook(boolean movedRightRook) {
+        this.movedRightRook = movedRightRook;
+    }
+
+    public void setMovedKing(boolean movedKing) {
+        this.movedKing = movedKing;
+    }
+
     public Vector2d getDirection() {
         return direction;
     }

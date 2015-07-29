@@ -7,7 +7,7 @@ import chex.Vector2d;
 public class Pawn extends Figure {
     public static final int NOT_ON_BASELINE_ERROR = 103;
     public static final int COLLISION_ERROR = 102;
-    public static final int WRONG_MOVEMENT_ERROR = 101;
+    public static final int INVALID_PAWN_MOVE = 101;
     public static final int NO_COLLISION_ERROR = 104;
     public static final int CANT_TAKE_OWN_PIECE = 105;
 
@@ -58,7 +58,7 @@ public class Pawn extends Figure {
                 return NO_COLLISION_ERROR;
             }
         } else {
-            return WRONG_MOVEMENT_ERROR;
+            return INVALID_PAWN_MOVE;
         }
     }
 
