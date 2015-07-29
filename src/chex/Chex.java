@@ -34,10 +34,11 @@ public final class Chex {
                             if (commandScanner.hasNext()) {
                                 String to = commandScanner.next();
                                 if (validate(from) && validate(to)) {
-                                    if(chess.move(from, to)) {
+                                    int valCode = chess.move(from, to);
+                                    if(valCode == 0) {
                                         System.out.println("Ok.");
                                     } else {
-                                        System.out.println("Illegal move.");
+                                        System.out.println("Illegal move: " + valCodeToString(valCode));
                                     }
                                 } else {
                                     System.out.println("Invalid square.");
@@ -55,6 +56,15 @@ public final class Chex {
                 done = true;
             }
         }
+    }
+
+    private static String valCodeToString(int valCode) {
+        switch (valCode) {
+            case 1: return "Not your piece.";
+            case 101: return "Not a valid move for a pawn.";
+        }
+
+        return "Unknown Error: " + valCode;
     }
 
     private static boolean validate(String square) {

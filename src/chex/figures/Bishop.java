@@ -1,14 +1,13 @@
 package chex.figures;
 
+import chex.Player;
+import chex.Square;
 import chex.Vector2d;
 
-/**
- * Created by leon on 29.07.15.
- */
 public class Bishop extends Figure {
     @Override
-    boolean validMove(Vector2d playerDirection) {
-        return false;
+    public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
+        return 0;
     }
 
     @Override

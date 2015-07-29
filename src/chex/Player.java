@@ -5,10 +5,12 @@ package chex;
  */
 public class Player {
     private Color color;
+    private Vector2d direction;
     private boolean movedLeftRook, movedRightRook, movedKing;
 
-    public Player(Color color) {
+    public Player(Color color, Vector2d direction) {
         this.color = color;
+        this.direction = direction;
         movedKing = movedRightRook = movedLeftRook = false;
     }
 
@@ -18,6 +20,10 @@ public class Player {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public Vector2d getDirection() {
+        return direction;
     }
 
     @Override

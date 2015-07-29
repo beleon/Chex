@@ -10,10 +10,13 @@ public class Chess {
     private int currentPlayer;
     private Tuple<Player> players;
     private List<Tuple<Vector2d>> moves;
+    private int turnCount;
 
     public Chess() {
         currentPlayer = 0;
-        players = new Tuple<>(new Player(Color.WHITE), new Player(Color.BLACK));
+        turnCount = 1;
+        players = new Tuple<>(new Player(Color.WHITE, new Vector2d(0, -1)),
+                              new Player(Color.BLACK, new Vector2d(0, 1)));
         moves = new LinkedList<>();
         board = new Square[8][8];
 
@@ -57,17 +60,19 @@ public class Chess {
         }
     }
 
-    public boolean move(String fromString, String toString) {
+    public int move(String fromString, String toString) {
         Vector2d from = Vector2d.fromChessNotation(fromString);
         Vector2d to = Vector2d.fromChessNotation(toString);
 
-        if (validateMove(from, to)) {
+        int valCode = validateMove(from, to);
+
+        if (valCode == 0) {
             movePiece(from, to);
             moves.add(new Tuple<>(from, to));
             nextPlayer();
-            return true;
+            ++turnCount;
         }
-        return false;
+        return valCode;
     }
 
     private void movePiece(Vector2d from, Vector2d to) {
@@ -75,12 +80,18 @@ public class Chess {
         board[to.getY()][to.getX()].setPiece(piece);
     }
 
-    private boolean validateMove(Vector2d from, Vector2d to) {
+    private int validateMove(Vector2d from, Vector2d to) {
         Piece piece = board[from.getY()][from.getX()].getPiece();
         if (piece != null && piece.belongsTo(players.get(currentPlayer))) {
-            return true;
+            int pieceValCode = piece.getFigure().validateMove(piece.getPlayer(), from, to, board, turnCount);
+            if (pieceValCode == 0) {
+                return 0;
+            } else {
+                return pieceValCode;
+            }
+        } else {
+            return 1;
         }
-        return false;
     }
 
     private void nextPlayer() {
