@@ -33,11 +33,27 @@ public class Vector2d {
     }
 
     public Vector2d add(Vector2d vector2d) {
-        return new Vector2d(x + vector2d.x, vector2d.y);
+        return new Vector2d(x + vector2d.x, y + vector2d.y);
     }
 
     public Vector2d sub(Vector2d vector2d) {
         return new Vector2d(x - vector2d.x, y - vector2d.y);
+    }
+
+    public Vector2d mult(int scalar) {
+        return new Vector2d(x * scalar, y * scalar);
+    }
+
+    public Vector2d scaleX(int scalar) {
+        return new Vector2d(x * scalar, y);
+    }
+
+    public Vector2d scaleY(int scalar) {
+        return new Vector2d(x, y * scalar);
+    }
+
+    public Vector2d mod(int scalar) {
+        return new Vector2d(x % scalar, y % scalar);
     }
 
     @Override
@@ -52,5 +68,10 @@ public class Vector2d {
     @Override
     public int hashCode() {
         return x * 8 + y;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("X: ").append(x).append(", Y: ").append(y).toString();
     }
 }
