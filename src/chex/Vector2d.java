@@ -80,7 +80,6 @@ public class Vector2d {
         if (o == null || getClass() != o.getClass()) return false;
 
         Vector2d vector2d = (Vector2d) o;
-        System.out.println(x + ", " + vector2d.x + "\n" + y + ", " + vector2d.y);
         return x == vector2d.x && y == vector2d.y;
     }
 
