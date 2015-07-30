@@ -1,6 +1,7 @@
 package chex.figures;
 
 import chex.Player;
+import chex.PretendEnv;
 import chex.Square;
 import chex.Vector2d;
 
@@ -24,6 +25,14 @@ public class Knight extends Figure {
         } else {
             return INVALID_KNIGHT_MOVE;
         }
+    }
+
+    @Override
+    public boolean canAttack(Player player, Vector2d from, Vector2d to, PretendEnv pretendEnv) {
+        Vector2d moveVector = to.sub(from);
+        Vector2d bluePrintMove = new Vector2d(1, 2);
+
+        return moveVector.abs().equals(bluePrintMove) || moveVector.abs().mirror().equals(bluePrintMove);
     }
 
     @Override

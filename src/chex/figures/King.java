@@ -1,6 +1,7 @@
 package chex.figures;
 
 import chex.Player;
+import chex.PretendEnv;
 import chex.Square;
 import chex.Vector2d;
 
@@ -10,9 +11,8 @@ public class King extends Figure {
 
     private boolean hasMoved;
 
-    public King(Player owner) {
+    public King() {
         hasMoved = false;
-        owner.registerKing(this);
     }
 
     @Override
@@ -26,7 +26,6 @@ public class King extends Figure {
             } else {
                 if (!hasMoved) {
                     hasMoved = true;
-                    player.setMovedKing(true);
                 }
                 return 0;
             }
@@ -36,13 +35,11 @@ public class King extends Figure {
                 //todo: impl
 
                 hasMoved = true;
-                player.setMovedKing(true);
                 return 0;
             } else if (moveVector.equals(new Vector2d(-2 ,0)) && !player.hasMovedLeftRook()) {
                 //todo: impl
 
                 hasMoved = true;
-                player.setMovedKing(true);
                 return 0;
             } else {
                 return INVALID_KING_MOVE;
@@ -50,6 +47,13 @@ public class King extends Figure {
         } else {
             return INVALID_KING_MOVE;
         }
+    }
+
+    @Override
+    public boolean canAttack(Player player, Vector2d from, Vector2d to, PretendEnv pretendEnv) {
+        Vector2d moveVector = to.sub(from);
+
+        return moveVector.abs().max() == 1;
     }
 
     @Override

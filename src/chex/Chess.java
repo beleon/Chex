@@ -25,7 +25,7 @@ public class Chess {
         board[0][1] = new Square(new Piece(players.getY(), new Knight()));
         board[0][2] = new Square(new Piece(players.getY(), new Bishop()));
         board[0][3] = new Square(new Piece(players.getY(), new Queen()));
-        board[0][4] = new Square(new Piece(players.getY(), new King(players.getY())));
+        board[0][4] = new Square(new Piece(players.getY(), new King()));
         board[0][5] = new Square(new Piece(players.getY(), new Bishop()));
         board[0][6] = new Square(new Piece(players.getY(), new Knight()));
         board[0][7] = new Square(new Piece(players.getY(), new Rook()));
@@ -49,7 +49,7 @@ public class Chess {
         board[7][1] = new Square(new Piece(players.getX(), new Knight()));
         board[7][2] = new Square(new Piece(players.getX(), new Bishop()));
         board[7][3] = new Square(new Piece(players.getX(), new Queen()));
-        board[7][4] = new Square(new Piece(players.getX(), new King(players.getX())));
+        board[7][4] = new Square(new Piece(players.getX(), new King()));
         board[7][5] = new Square(new Piece(players.getX(), new Bishop()));
         board[7][6] = new Square(new Piece(players.getX(), new Knight()));
         board[7][7] = new Square(new Piece(players.getX(), new Rook()));

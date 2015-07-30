@@ -1,6 +1,7 @@
 package chex.figures;
 
 import chex.Player;
+import chex.PretendEnv;
 import chex.Square;
 import chex.Vector2d;
 
@@ -60,6 +61,13 @@ public class Pawn extends Figure {
         } else {
             return INVALID_PAWN_MOVE;
         }
+    }
+
+    @Override
+    public boolean canAttack(Player player, Vector2d from, Vector2d to, PretendEnv pretendEnv) {
+        Vector2d moveVector = to.sub(from);
+
+        return moveVector.isDiagonal() && moveVector.getY() == player.getDirection().getY();
     }
 
     public int getFastForward() {

@@ -1,6 +1,7 @@
 package chex.figures;
 
 import chex.Player;
+import chex.PretendEnv;
 import chex.Square;
 import chex.Vector2d;
 
@@ -40,6 +41,32 @@ public class Queen extends Figure {
         } else {
             return INVALID_QUEEN_MOVE;
         }
+    }
+
+    @Override
+    public boolean canAttack(Player player, Vector2d from, Vector2d to, PretendEnv pretendEnv) {
+        Vector2d moveVector = to.sub(from);
+
+        if (moveVector.shorten().isNormal()) {
+            for (int i = 1; i < moveVector.abs().max(); ++i) {
+                Vector2d wayPoint = from.add(moveVector.shorten().mult(i));
+                if (pretendEnv.get(wayPoint).getPiece() != null) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        else if (moveVector.isDiagonal()) {
+            for (int i = 1; i < moveVector.abs().max(); ++i) {
+                Vector2d wayPoint = from.add(moveVector.shorten().mult(i));
+                if (pretendEnv.get(wayPoint).getPiece() != null) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
