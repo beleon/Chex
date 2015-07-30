@@ -40,8 +40,6 @@ public class Rook extends Figure {
                 player.setMovedLeftRook(true);
             } else if (from.getX() == 7) {
                 player.setMovedRightRook(true);
-            } else {
-                throw new IllegalStateException("Rook hasn't moved yet it is on a non starting position.");
             }
         }
 

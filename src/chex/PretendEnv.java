@@ -17,11 +17,11 @@ public class PretendEnv {
         if (point == null) {
             return null;
         }
-        if (from.equals(point)) {
-            return new Square();
-        }
         if (to.equals(point)) {
             return board[from.getY()][from.getX()];
+        }
+        if (from.equals(point)) {
+            return new Square();
         } else {
             return board[point.getY()][point.getX()];
         }
@@ -59,6 +59,7 @@ public class PretendEnv {
                 }
             }
         }
+        System.out.println("test");
         return null;
     }
 }

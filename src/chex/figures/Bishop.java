@@ -15,7 +15,7 @@ public class Bishop extends Figure {
     public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
         Vector2d moveVector = to.sub(from);
 
-        if (moveVector.isDiagonal() && moveVector.max() > 0) {
+        if (moveVector.isDiagonal() && moveVector.abs().max() > 0) {
             for (int i = 0; i < moveVector.abs().max(); ++i) {
                 Vector2d wayPoint = from.add(moveVector.shorten().mult(i + 1));
                 if (board[wayPoint.getY()][wayPoint.getX()].getPiece() != null) {
@@ -35,7 +35,7 @@ public class Bishop extends Figure {
     @Override
     public boolean canAttack(Player player, Vector2d from, Vector2d to, PretendEnv pretendEnv) {
         Vector2d moveVector = to.sub(from);
-        if (moveVector.isDiagonal() && moveVector.max() > 0) {
+        if (moveVector.isDiagonal() && moveVector.abs().max() > 0) {
             for (int i = 1; i < moveVector.abs().max(); ++i) {
                 Vector2d wayPoint = from.add(moveVector.shorten().mult(i));
                 if (pretendEnv.get(wayPoint).getPiece() != null) {

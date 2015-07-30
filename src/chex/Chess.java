@@ -67,15 +67,22 @@ public class Chess {
 
         int valCode = validateMove(from, to);
 
-        if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE) {
+        if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE || valCode == King.LEFT_SIDE_CASTLING_MOVE
+                || valCode == King.RIGHT_SIDE_CASTLING_MOVE) {
             if (new PretendEnv(board, from, to).isInCheck(players.get(currentPlayer))) {
                 return IN_CHECK_ERROR;
             } else {
                 if (valCode == Pawn.EN_PASSANT_MOVE) {
-                    valCode = 0;
                     Vector2d enemyPawn = to.sub(players.get(currentPlayer).getDirection());
                     board[enemyPawn.getY()][enemyPawn.getX()] = new Square();
+                } else if (valCode == King.LEFT_SIDE_CASTLING_MOVE) {
+                    movePiece(from.sub(new Vector2d(4, 0)), from.sub(new Vector2d(1, 0)));
+                    players.get(currentPlayer).setMovedLeftRook(true);
+                } else if (valCode == King.RIGHT_SIDE_CASTLING_MOVE) {
+                    players.get(currentPlayer).setMovedRightRook(true);
+                    movePiece(from.add(new Vector2d(3, 0)), from.add(new Vector2d(1, 0)));
                 }
+                valCode = 0;
                 movePiece(from, to);
                 moves.add(new Tuple<>(from, to));
                 nextPlayer();
