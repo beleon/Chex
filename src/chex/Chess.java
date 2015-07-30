@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Chess {
+    public static final int IN_CHECK_ERROR = 55;
     private Square[][] board;
     private int currentPlayer;
     private Tuple<Player> players;
@@ -66,11 +67,20 @@ public class Chess {
 
         int valCode = validateMove(from, to);
 
-        if (valCode == 0) {
-            movePiece(from, to);
-            moves.add(new Tuple<>(from, to));
-            nextPlayer();
-            ++turnCount;
+        if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE) {
+            if (new PretendEnv(board, from, to).isInCheck(players.get(currentPlayer))) {
+                return IN_CHECK_ERROR;
+            } else {
+                if (valCode == Pawn.EN_PASSANT_MOVE) {
+                    valCode = 0;
+                    Vector2d enemyPawn = to.sub(players.get(currentPlayer).getDirection());
+                    board[enemyPawn.getY()][enemyPawn.getX()] = new Square();
+                }
+                movePiece(from, to);
+                moves.add(new Tuple<>(from, to));
+                nextPlayer();
+                ++turnCount;
+            }
         }
         return valCode;
     }

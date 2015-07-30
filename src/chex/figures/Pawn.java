@@ -11,6 +11,7 @@ public class Pawn extends Figure {
     public static final int INVALID_PAWN_MOVE = 101;
     public static final int NO_COLLISION_ERROR = 104;
     public static final int CANT_TAKE_OWN_PIECE = 105;
+    public static final int EN_PASSANT_MOVE = 111;
 
     private int fastForward;
 
@@ -53,8 +54,7 @@ public class Pawn extends Figure {
                        && board[enPassantPos.getY()][enPassantPos.getX()].getPiece().getFigure() instanceof Pawn
                        && ((Pawn) board[enPassantPos.getY()][enPassantPos.getX()].getPiece().getFigure())
                             .getFastForward() == turnCount - 1) {
-                //en passant
-                return 0;
+                return EN_PASSANT_MOVE;
             } else {
                 return NO_COLLISION_ERROR;
             }
