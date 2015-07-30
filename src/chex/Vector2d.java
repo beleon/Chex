@@ -69,6 +69,10 @@ public class Vector2d {
         return new Vector2d(y, x);
     }
 
+    public boolean isNormal() {
+        return (x == 0 && Math.abs(y) == 1) || (Math.abs(x) == 1 && y == 0);
+    }
+
     public static int GCD(int a, int b) {
         if (b==0) return Math.abs(a);
         return GCD(b,a%b);
