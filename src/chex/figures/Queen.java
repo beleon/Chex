@@ -14,7 +14,7 @@ public class Queen extends Figure {
     public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
         Vector2d moveVector = to.sub(from);
 
-        if (moveVector.isDiagonal()) {
+        if (moveVector.isDiagonal() && moveVector.max() > 0) {
             for (int i = 0; i < moveVector.abs().max(); ++i) {
                 Vector2d wayPoint = from.add(moveVector.shorten().mult(i + 1));
                 if (board[wayPoint.getY()][wayPoint.getX()].getPiece() != null) {
@@ -57,7 +57,7 @@ public class Queen extends Figure {
             return true;
         }
 
-        else if (moveVector.isDiagonal()) {
+        else if (moveVector.isDiagonal() && moveVector.max() > 0) {
             for (int i = 1; i < moveVector.abs().max(); ++i) {
                 Vector2d wayPoint = from.add(moveVector.shorten().mult(i));
                 if (pretendEnv.get(wayPoint).getPiece() != null) {
