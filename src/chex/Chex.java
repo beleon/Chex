@@ -86,6 +86,16 @@ public final class Chex {
                             System.out.println("Invalid number of arguments.");
                             break;
                         case 'q': done = true; break;
+                        case 'h':
+                            System.out.println("Usage:\n");
+                            System.out.println("p\t\t\t\t\t\t\t\tprint the board.");
+                            System.out.println("m start end\t\t\t\t\t\tmove piece from start point to end point using standard chess notation. e.g. m e2 e4.");
+                            System.out.println("l\t\t\t\t\t\t\t\tprint move list.");
+                            System.out.println("n\t\t\t\t\t\t\t\tnew game.");
+                            System.out.println("r target [player figure]\t\treplace target square with no piece or given piece for give player. eg. r e2 b q -> black queen on e2.");
+                            System.out.println("h\t\t\t\t\t\t\t\tthis help text.");
+                            System.out.println("q\t\t\t\t\t\t\t\tquit. Also crl-d.");
+                            break;
                         default:
                             System.out.println("Unknown command: " + command); break;
                     }
