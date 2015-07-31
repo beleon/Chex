@@ -6,6 +6,7 @@ public class Rook extends Figure {
     public static final int OWN_PIECE_COLLISION_ERROR = 202;
     public static final int ENEMY_COLLISION_ERROR = 203;
     public static final int INVALID_ROOK_MOVE = 201;
+    public static final int VALID_ROOK_MOVE = 3;
 
     @Override
     public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
@@ -26,16 +27,8 @@ public class Rook extends Figure {
             return INVALID_ROOK_MOVE;
         }
 
-        if ((from.getY() == 0 && player.getColor().equals(Color.BLACK))
-             || (from.getY() == 7 && player.getColor().equals(Color.WHITE))) {
-            if (from.getX() == 0) {
-                player.setMovedLeftRook(true);
-            } else if (from.getX() == 7) {
-                player.setMovedRightRook(true);
-            }
-        }
 
-        return 0;
+        return VALID_ROOK_MOVE;
     }
 
     @Override

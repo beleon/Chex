@@ -68,7 +68,8 @@ public class Chess {
         int valCode = validateMove(from, to);
 
         if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE || valCode == King.LEFT_SIDE_CASTLING_MOVE
-                || valCode == King.RIGHT_SIDE_CASTLING_MOVE) {
+                || valCode == King.RIGHT_SIDE_CASTLING_MOVE || valCode == Rook.VALID_ROOK_MOVE
+                || valCode == King.VALID_KING_MOVE) {
             if (new PretendEnv(board, from, to).isInCheck(players.get(currentPlayer))) {
                 return IN_CHECK_ERROR;
             } else {
@@ -82,6 +83,17 @@ public class Chess {
                 } else if (valCode == King.RIGHT_SIDE_CASTLING_MOVE) {
                     movePiece(from.add(new Vector2d(3, 0)), from.add(new Vector2d(1, 0)));
                     players.get(currentPlayer).setMovedRightRook(true);
+                    players.get(currentPlayer).setMovedKing(true);
+                } else if (valCode == Rook.VALID_ROOK_MOVE) {
+                    if ((from.getY() == 0 && players.get(currentPlayer).getColor().equals(Color.BLACK))
+                            || (from.getY() == 7 && players.get(currentPlayer).getColor().equals(Color.WHITE))) {
+                        if (from.getX() == 0) {
+                            players.get(currentPlayer).setMovedLeftRook(true);
+                        } else if (from.getX() == 7) {
+                            players.get(currentPlayer).setMovedRightRook(true);
+                        }
+                    }
+                } else if (valCode == King.VALID_KING_MOVE) {
                     players.get(currentPlayer).setMovedKing(true);
                 }
                 valCode = 0;
@@ -169,5 +181,22 @@ public class Chess {
     public void replace(String targetString) {
         Vector2d target = Vector2d.fromChessNotation(targetString);
         board[target.getY()][target.getX()].setPiece(null);
+    }
+
+    public List<Vector2d> moveInfo(Vector2d vector2d) {
+        List<Vector2d> moveList = new LinkedList<>();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Vector2d to = new Vector2d(i, j);
+                int valCode = validateMove(vector2d, to);
+                if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE || valCode == King.LEFT_SIDE_CASTLING_MOVE
+                || valCode == King.RIGHT_SIDE_CASTLING_MOVE || valCode == Rook.VALID_ROOK_MOVE
+                || valCode == King.VALID_KING_MOVE) {
+                    moveList.add(to);
+                }
+            }
+        }
+        return moveList;
     }
 }
