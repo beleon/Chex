@@ -5,12 +5,12 @@ import chex.figures.King;
 public class Player {
     private Color color;
     private Vector2d direction;
-    private boolean movedLeftRook, movedRightRook;
+    private boolean movedLeftRook, movedRightRook, movedKing;
 
     public Player(Color color, Vector2d direction) {
         this.color = color;
         this.direction = direction;
-        movedRightRook = movedLeftRook = false;
+        movedKing = movedRightRook = movedLeftRook = false;
     }
 
     public Color getColor() {
@@ -35,6 +35,14 @@ public class Player {
 
     public boolean hasMovedRightRook() {
         return movedRightRook;
+    }
+
+    public boolean hasMovedKing() {
+        return movedKing;
+    }
+
+    public void setMovedKing(boolean movedKing) {
+        this.movedKing = movedKing;
     }
 
     public Vector2d getDirection() {

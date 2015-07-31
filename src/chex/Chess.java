@@ -78,9 +78,11 @@ public class Chess {
                 } else if (valCode == King.LEFT_SIDE_CASTLING_MOVE) {
                     movePiece(from.sub(new Vector2d(4, 0)), from.sub(new Vector2d(1, 0)));
                     players.get(currentPlayer).setMovedLeftRook(true);
+                    players.get(currentPlayer).setMovedKing(true);
                 } else if (valCode == King.RIGHT_SIDE_CASTLING_MOVE) {
-                    players.get(currentPlayer).setMovedRightRook(true);
                     movePiece(from.add(new Vector2d(3, 0)), from.add(new Vector2d(1, 0)));
+                    players.get(currentPlayer).setMovedRightRook(true);
+                    players.get(currentPlayer).setMovedKing(true);
                 }
                 valCode = 0;
                 movePiece(from, to);

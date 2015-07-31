@@ -1,19 +1,11 @@
 package chex.figures;
 
-import chex.Player;
-import chex.PretendEnv;
-import chex.Square;
-import chex.Vector2d;
+import chex.*;
 
 public class Rook extends Figure {
     public static final int OWN_PIECE_COLLISION_ERROR = 202;
     public static final int ENEMY_COLLISION_ERROR = 203;
     public static final int INVALID_ROOK_MOVE = 201;
-    private boolean hasMoved;
-
-    public Rook() {
-        hasMoved = false;
-    }
 
     @Override
     public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
@@ -34,8 +26,8 @@ public class Rook extends Figure {
             return INVALID_ROOK_MOVE;
         }
 
-        if (!hasMoved) {
-            hasMoved = true;
+        if ((from.getY() == 0 && player.getColor().equals(Color.BLACK))
+             || (from.getY() == 7 && player.getColor().equals(Color.WHITE))) {
             if (from.getX() == 0) {
                 player.setMovedLeftRook(true);
             } else if (from.getX() == 7) {

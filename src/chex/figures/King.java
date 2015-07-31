@@ -13,12 +13,6 @@ public class King extends Figure {
     public static final int IN_CHECK_CASTLING_ERROR = 613;
     public static final int CASTLING_COLLISION_ERROR = 614;
 
-    private boolean hasMoved;
-
-    public King() {
-        hasMoved = false;
-    }
-
     @Override
     public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
         Vector2d moveVector = to.sub(from);
@@ -28,10 +22,10 @@ public class King extends Figure {
                 && board[to.getY()][to.getX()].getPiece().belongsTo(player)) {
                 return OWN_PIECE_COLLISION_ERROR;
             } else {
-                hasMoved = true;
+                player.setMovedKing(true);
                 return 0;
             }
-        } else if (!hasMoved) {
+        } else if (!player.hasMovedKing()) {
             //castling
             if (!new PretendEnv(board, from, from).isInCheck(player)) {
                 if (moveVector.equals(new Vector2d(2, 0)) && !player.hasMovedRightRook()) {
@@ -44,7 +38,7 @@ public class King extends Figure {
                             return CASTLING_COLLISION_ERROR;
                         }
                     }
-                    hasMoved = true;
+                    player.setMovedKing(true);
                     return RIGHT_SIDE_CASTLING_MOVE;
                 } else if (moveVector.equals(new Vector2d(-2, 0)) && !player.hasMovedLeftRook()) {
                     for (int i = 0; i < 2; i++) {
@@ -61,7 +55,7 @@ public class King extends Figure {
                     if (board[wayPoint.getY()][wayPoint.getX()].getPiece() != null) {
                         return CASTLING_COLLISION_ERROR;
                     }
-                    hasMoved = true;
+                    player.setMovedKing(true);
                     return LEFT_SIDE_CASTLING_MOVE;
                 } else {
                     return INVALID_KING_MOVE;
