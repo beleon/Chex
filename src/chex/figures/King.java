@@ -28,7 +28,12 @@ public class King extends Figure {
         } else if (!player.hasMovedKing()) {
             //castling
             if (!new PretendEnv(board, from, from).isInCheck(player)) {
-                if (moveVector.equals(new Vector2d(2, 0)) && !player.hasMovedRightRook()) {
+                Vector2d leftRook = from.sub(new Vector2d(4, 0));
+                Vector2d rightRook = from.add(new Vector2d(3, 0));
+                if (moveVector.equals(new Vector2d(2, 0)) && !player.hasMovedRightRook()
+                        && board[rightRook.getY()][rightRook.getX()].getPiece() != null
+                        && board[rightRook.getY()][rightRook.getX()].getPiece().getFigure() instanceof Rook
+                        && board[rightRook.getY()][rightRook.getX()].getPiece().belongsTo(player)) {
                     for (int i = 0; i < 2; i++) {
                         Vector2d wayPoint = from.add(new Vector2d(1, 0).mult(i + 1));
                         if (new PretendEnv(board, from, wayPoint).isInCheck(player)) {
@@ -40,7 +45,10 @@ public class King extends Figure {
                     }
                     player.setMovedKing(true);
                     return RIGHT_SIDE_CASTLING_MOVE;
-                } else if (moveVector.equals(new Vector2d(-2, 0)) && !player.hasMovedLeftRook()) {
+                } else if (moveVector.equals(new Vector2d(-2, 0)) && !player.hasMovedLeftRook()
+                    && board[leftRook.getY()][leftRook.getX()].getPiece() != null
+                            && board[leftRook.getY()][leftRook.getX()].getPiece().getFigure() instanceof Rook
+                            && board[leftRook.getY()][leftRook.getX()].getPiece().belongsTo(player)) {
                     for (int i = 0; i < 2; i++) {
                         Vector2d wayPoint = from.sub(new Vector2d(1, 0).mult(i + 1));
                         if (new PretendEnv(board, from, wayPoint).isInCheck(player)) {
