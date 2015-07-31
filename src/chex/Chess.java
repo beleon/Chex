@@ -139,4 +139,33 @@ public class Chess {
         }
         return stringBuilder.toString();
     }
+
+    public void replace(String targetString, String playerString, String abbr) {
+        Vector2d target = Vector2d.fromChessNotation(targetString);
+        Player player;
+        Piece newPiece;
+
+        switch (playerString.toLowerCase().charAt(0)) {
+            case 'w': player = players.getX(); break;
+            case 'b': player = players.getY(); break;
+            default: throw new IllegalArgumentException("Not a valid player.");
+        }
+
+        switch (abbr.toLowerCase().charAt(0)) {
+            case 'k': newPiece = new Piece(player, new King()); break;
+            case 'q': newPiece = new Piece(player, new Queen()); break;
+            case 'b': newPiece = new Piece(player, new Bishop()); break;
+            case 'n': newPiece = new Piece(player, new Knight()); break;
+            case 'r': newPiece = new Piece(player, new Rook()); break;
+            case 'p': newPiece = new Piece(player, new Pawn()); break;
+            default: throw new IllegalArgumentException("Not a valid piece.");
+        }
+
+        board[target.getY()][target.getX()].setPiece(newPiece);
+    }
+
+    public void replace(String targetString) {
+        Vector2d target = Vector2d.fromChessNotation(targetString);
+        board[target.getY()][target.getX()].setPiece(null);
+    }
 }
