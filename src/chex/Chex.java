@@ -73,6 +73,7 @@ public final class Chex {
                                 }
                             }
                             System.out.println("Invalid number of arguments.");
+                            break;
                         case 'l':
                             System.out.println(chess.moveListAsString());
                             break;

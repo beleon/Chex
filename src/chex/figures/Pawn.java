@@ -12,12 +12,7 @@ public class Pawn extends Figure {
     public static final int NO_COLLISION_ERROR = 104;
     public static final int CANT_TAKE_OWN_PIECE = 105;
     public static final int EN_PASSANT_MOVE = 111;
-
-    private int fastForward;
-
-    public Pawn() {
-        fastForward = -1;
-    }
+    public static final int VALID_FF_MOVE = 7;
 
     @Override
     public int validateMove(Player player, Vector2d from, Vector2d to, Square[][] board, int turnCount) {
@@ -30,11 +25,10 @@ public class Pawn extends Figure {
           }
         } else if (moveVector.equals(player.getDirection().mult(2))) {
             if (from.scaleX(0).equals(new Vector2d(0, 7).add(player.getDirection()).mod(7))) {
-                Vector2d inBetween = from.add(player.getDirection());
+                Vector2d wayPoint = from.add(player.getDirection());
                 if (board[to.getY()][to.getX()].getPiece() == null
-                    && board[inBetween.getY()][inBetween.getX()].getPiece() == null) {
-                    fastForward = turnCount;
-                    return 0;
+                    && board[wayPoint.getY()][wayPoint.getX()].getPiece() == null) {
+                    return VALID_FF_MOVE;
                 } else {
                     return COLLISION_ERROR;
                 }
@@ -52,8 +46,9 @@ public class Pawn extends Figure {
                 }
             } else if (board[enPassantPos.getY()][enPassantPos.getX()].getPiece() != null
                        && board[enPassantPos.getY()][enPassantPos.getX()].getPiece().getFigure() instanceof Pawn
-                       && ((Pawn) board[enPassantPos.getY()][enPassantPos.getX()].getPiece().getFigure())
-                            .getFastForward() == turnCount - 1) {
+                       && !board[enPassantPos.getY()][enPassantPos.getX()].getPiece().belongsTo(player)
+                       && board[enPassantPos.getY()][enPassantPos.getX()].getPiece().getPlayer().getFfByIndex(to.getX())
+                        == turnCount - 1) {
                 return EN_PASSANT_MOVE;
             } else {
                 return NO_COLLISION_ERROR;
@@ -68,10 +63,6 @@ public class Pawn extends Figure {
         Vector2d moveVector = to.sub(from);
 
         return moveVector.isDiagonal() && moveVector.getY() == player.getDirection().getY();
-    }
-
-    public int getFastForward() {
-        return fastForward;
     }
 
     @Override

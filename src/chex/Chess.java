@@ -69,7 +69,7 @@ public class Chess {
 
         if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE || valCode == King.LEFT_SIDE_CASTLING_MOVE
                 || valCode == King.RIGHT_SIDE_CASTLING_MOVE || valCode == Rook.VALID_ROOK_MOVE
-                || valCode == King.VALID_KING_MOVE) {
+                || valCode == King.VALID_KING_MOVE || valCode == Pawn.VALID_FF_MOVE) {
             if (new PretendEnv(board, from, to).isInCheck(players.get(currentPlayer))) {
                 return IN_CHECK_ERROR;
             } else {
@@ -95,6 +95,8 @@ public class Chess {
                     }
                 } else if (valCode == King.VALID_KING_MOVE) {
                     players.get(currentPlayer).setMovedKing(true);
+                } else if (valCode == Pawn.VALID_FF_MOVE) {
+                    players.get(currentPlayer).setFfByIndex(from.getX(), turnCount);
                 }
                 valCode = 0;
                 movePiece(from, to);
@@ -192,7 +194,7 @@ public class Chess {
                 int valCode = validateMove(vector2d, to);
                 if (valCode == 0 || valCode == Pawn.EN_PASSANT_MOVE || valCode == King.LEFT_SIDE_CASTLING_MOVE
                 || valCode == King.RIGHT_SIDE_CASTLING_MOVE || valCode == Rook.VALID_ROOK_MOVE
-                || valCode == King.VALID_KING_MOVE) {
+                || valCode == King.VALID_KING_MOVE || valCode == Pawn.VALID_FF_MOVE) {
                     moveList.add(to);
                 }
             }

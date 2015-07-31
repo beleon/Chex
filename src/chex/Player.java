@@ -6,11 +6,16 @@ public class Player {
     private Color color;
     private Vector2d direction;
     private boolean movedLeftRook, movedRightRook, movedKing;
+    private int[] ff;
 
     public Player(Color color, Vector2d direction) {
         this.color = color;
         this.direction = direction;
         movedKing = movedRightRook = movedLeftRook = false;
+        ff = new int[8];
+        for (int i = 0; i < ff.length; i++) {
+            ff[i] = -i;
+        }
     }
 
     public Color getColor() {
@@ -43,6 +48,14 @@ public class Player {
 
     public void setMovedKing(boolean movedKing) {
         this.movedKing = movedKing;
+    }
+
+    public int getFfByIndex(int index) {
+        return ff[index];
+    }
+
+    public void setFfByIndex(int index, int value) {
+        ff[index] = value;
     }
 
     public Vector2d getDirection() {
